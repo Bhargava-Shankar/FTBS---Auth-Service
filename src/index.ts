@@ -4,6 +4,15 @@ import dotenv from "dotenv"
 import myClient from "./utils/data-source";
 import routes from "./routes/index";
 
+//EXTENDING REQUEST OBJECT VIA GOLBAL NAMESPACE
+declare global {
+    namespace Express {
+        interface Request {
+            token: string
+        }
+    }
+}
+
 dotenv.config();
 
 
@@ -13,6 +22,10 @@ app.use(routes);
 app.get("/", (req: Request, res: Response) => {
     res.send("Hello");
 })
+
+
+
+
 
 //TODO: ADD RATE LIMITER
 //TODO: ADD REVERSE PROXY FOR BOOKING SERVICE ALONE

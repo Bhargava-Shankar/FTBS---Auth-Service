@@ -11,4 +11,12 @@ export class UserAccountRespository extends CrudRepository{
     async createUserAccount(data: any){
         return await this.model.create({ data: data });
     }
+
+    async findUserAccount(email: string) {
+        return await this.model.findUnique({
+            where: {
+                email: email
+            }
+        })
+    }
 }

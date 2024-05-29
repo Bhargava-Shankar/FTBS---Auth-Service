@@ -1,9 +1,11 @@
 import jwt from "jsonwebtoken";
 import { jwtConfig } from "../config/config";
 
-export function generateAccessToken(data: Object) {
+export function generateAccessToken(userId: string) {
     const secret = jwtConfig.SECRET;
-    return jwt.sign(data, secret ,{
+    return jwt.sign({
+        userId : userId
+    }, secret ,{
         expiresIn: '24h',
         
     })
