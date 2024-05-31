@@ -51,12 +51,14 @@ class UserService{
         }
     }
 
-    async findUserAccount(email: string) {
+    async findUserAccountByEmail(email: string) {
         try {
             return await userAccountRepo.findUserAccount(email);
+         
         }
         catch (e) {
-            throw e;
+            
+            throw e
         }
     }
 }

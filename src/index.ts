@@ -3,6 +3,7 @@ import express from "express"
 import dotenv from "dotenv"
 import myClient from "./utils/data-source";
 import routes from "./routes/index";
+import cors from 'cors';
 
 //EXTENDING REQUEST OBJECT VIA GOLBAL NAMESPACE
 declare global {
@@ -17,8 +18,10 @@ dotenv.config();
 
 
 const app = express();
+app.use(cors())
 app.use(express.json());
 app.use(routes);
+
 
 //TODO: ADD RATE LIMITER
 //TODO: ADD REVERSE PROXY FOR BOOKING SERVICE ALONE
