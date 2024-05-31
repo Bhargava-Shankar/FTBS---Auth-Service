@@ -2,6 +2,9 @@ import { Request, Response } from "express"
 import UserService from "../services/user.service";
 import { comparePassword } from "../utils/crypt";
 import { generateAccessToken } from "../utils/jwt";
+import { AppError, errorResponse, successResponse } from "../utils/error";
+import { error } from "console";
+import { StatusCodes } from "http-status-codes";
 
 const registerUser = async (req: Request, res: Response) => {
 
@@ -18,15 +21,23 @@ const registerUser = async (req: Request, res: Response) => {
             })
             console.log(userId);
             const userProfile = await userService.createNewUserProfile(userId, req.body);
-            res.send("USER CREATED SUUCESSFULLY");
+
+            successResponse.data = userProfile;
+            res.status(StatusCodes.ACCEPTED).send(successResponse);
         }
         catch (e) {
+            if (e instanceof AppError) {
+                errorResponse.message = e.message;
+                res.status(e.statusCode).json(errorResponse)
+                return
+            }
             res.send(e)
         }
         return;
     }
     //USER ALREADY REGISTERED
-    res.send("USER ALREADY EXISTS");
+    errorResponse.message = "User Already Exists"
+    res.status(StatusCodes.CONFLICT).json(errorResponse)
     return;
 
 }

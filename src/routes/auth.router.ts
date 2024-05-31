@@ -16,11 +16,11 @@ router.get("/resource", checkAuthToken ,(req: Request, res: Response) => {
     res.send(checkAccessToken(req.token));
 })
 
+//PAYLOAD: EMAIL AND PASSWORD
 router.post("/login",authController.loginUser)
 
+//PAYLOAD: firstName, lastName, email, password
 router.post("/register",authController.registerUser)
-
-
 
 
 export default router;

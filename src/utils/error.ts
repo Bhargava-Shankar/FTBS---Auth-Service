@@ -1,8 +1,20 @@
 import {StatusCodes} from "http-status-codes"
 export class AppError extends Error{
     statusCode: number
-    constructor(message: string) {
+    constructor(message: string,statusCode: number) {
         super(message)
-        this.statusCode = StatusCodes.NOT_IMPLEMENTED
+        this.statusCode = statusCode
     }
+}
+
+export const successResponse = {
+    status: "success",
+    data: {},
+    message:{}
+}
+
+export const errorResponse = {
+    status: "error",
+    data: {},
+    message: {}
 }

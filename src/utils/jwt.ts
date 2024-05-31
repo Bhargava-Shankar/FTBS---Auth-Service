@@ -14,7 +14,6 @@ export function generateAccessToken(userId: string) {
 export function checkAccessToken(token: string) {
     try {
         var decoded = jwt.verify(token, jwtConfig.SECRET);
-        console.log(decoded);
         return true;
     } catch (err) {
         // err

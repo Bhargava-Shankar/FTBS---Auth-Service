@@ -19,13 +19,6 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(routes);
-app.get("/", (req: Request, res: Response) => {
-    res.send("Hello");
-})
-
-
-
-
 
 //TODO: ADD RATE LIMITER
 //TODO: ADD REVERSE PROXY FOR BOOKING SERVICE ALONE

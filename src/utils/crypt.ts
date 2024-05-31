@@ -9,5 +9,3 @@ export function comparePassword(password: string,hash: string): boolean {
     return bcrypt.compareSync(password, hash);
     
 }
-
-console.log(hashPassword("hello"));

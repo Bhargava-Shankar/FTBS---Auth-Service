@@ -3,15 +3,23 @@ import { UserAccountRespository } from "../repositories/userAccount.repo";
 import { UserProfileRespository } from "../repositories/userProfile.repo";
 import { hashPassword } from "../utils/crypt";
 import { AppError } from "../utils/error";
+import { StatusCodes } from "http-status-codes";
 
 
 const userAccountRepo = new UserAccountRespository();
 const userProfileRepo = new UserProfileRespository();
 
+
 class UserService{
 
     async createNewUserAccountGetId(data: any) {
         try {
+            if (!data['email']) {
+                throw new AppError("Email Not Entered",StatusCodes.BAD_REQUEST)
+            }
+            if (!data['password']) {
+                throw new AppError("Password Not Entered", StatusCodes.BAD_REQUEST)
+            }
             const userAccount = await userAccountRepo.createUserAccount({
                     email: data['email'],
                     password: hashPassword(data['password'])
@@ -22,6 +30,9 @@ class UserService{
             
         }
         catch (e) {
+            if (e instanceof AppError) {
+                throw new AppError(e.message, e.statusCode);
+            }
             throw e
         }
     }
